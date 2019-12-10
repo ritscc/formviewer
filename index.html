@@ -23,7 +23,7 @@
 		document.getElementsByTagName('head')[0].appendChild(link);
         
         if(furl){
-            window.open(APPURL+"?page=redirect&furl="+furl,"_mainFrame");
+            window.open(APPURL+"?page=redirect&token="+token+"&furl="+furl,"_mainFrame");
             history.replaceState("","","?");
         }else if(token){
             document.cookie = "userToken=" + encodeURIComponent(token)   + ";max-age=8640000";
