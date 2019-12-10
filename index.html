@@ -23,6 +23,11 @@
 		document.getElementsByTagName('head')[0].appendChild(link);
         
         if(furl){
+            try{
+                token = document.cookie.split("userToken=")[1].split(";")[0];
+            }catch(e){
+            	console.log(e);
+            }
             window.open(APPURL+"?page=redirect&token="+token+"&furl="+furl,"_mainFrame");
             history.replaceState("","","?");
         }else if(token){
