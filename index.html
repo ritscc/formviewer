@@ -11,6 +11,7 @@
     const isIOS = /iP(hone|(o|a)d)/.test(navigator.userAgent);
 
     window.onload = function(){
+        let furl  = getParam("furl");
         let token = getParam("token");
 
 		var link = document.createElement('link');
@@ -21,7 +22,10 @@
         console.log("load: "+link.href);
 		document.getElementsByTagName('head')[0].appendChild(link);
         
-        if(token){
+        if(furl){
+            window.open(APPURL+"?page=redirect&furl="+furl,"_mainFrame");
+            history.replaceState("","","?");
+        }else if(token){
             document.cookie = "userToken=" + encodeURIComponent(token)   + ";max-age=8640000";
             console.log("login token:" + token);
             window.open(APPURL+"?page=login&token="+token,"_mainFrame");
