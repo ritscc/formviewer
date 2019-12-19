@@ -11,54 +11,54 @@
     const isIOS = /iP(hone|(o|a)d)/.test(navigator.userAgent);
 
     window.onload = function(){
-        let furl  = getParam("furl");
-        let token = getParam("token");
+      let furl  = getParam("furl");
+      let token = getParam("token");
 
-		var link = document.createElement('link');
-		if(isIOS) link.href = 'frameForIos.css';  // IOS用CSS
-		else      link.href = 'frameDefault.css'; // デフォルトCSS
-		link.rel  = 'stylesheet';
-		link.type = 'text/css';
-        console.log("load: "+link.href);
-		document.getElementsByTagName('head')[0].appendChild(link);
+      var link = document.createElement('link');
+      if(isIOS) link.href = 'frameForIos.css';  // IOS用CSS
+      else      link.href = 'frameDefault.css'; // デフォルトCSS
+      link.rel  = 'stylesheet';
+      link.type = 'text/css';
+      console.log("load: "+link.href);
+      document.getElementsByTagName('head')[0].appendChild(link);
         
-        if(furl){
-            try{
-                token = document.cookie.split("userToken=")[1].split(";")[0];
-            }catch(e){
-            	console.log(e);
-            }
-            window.open(APPURL+"?page=redirect&token="+token+"&furl="+furl,"_mainFrame");
-            history.replaceState("","","?");
-        }else if(token){
-            document.cookie = "userToken=" + encodeURIComponent(token)   + ";max-age=8640000";
-            console.log("login token:" + token);
-            window.open(APPURL+"?page=login&token="+token,"_mainFrame");
-            history.replaceState("","","?");
-        }else{
-            try{
-                token = document.cookie.split("userToken=")[1].split(";")[0];
-                window.open(APPURL+"?page=view&token="+token,"_mainFrame");
-            }catch(e){
-                console.log(e);
-                window.open(APPURL,"_mainFrame");
-            }
+      if(furl){
+        try{
+          token = document.cookie.split("userToken=")[1].split(";")[0];
+        }catch(e){
+          console.log(e);
         }
-        var iframe = document.getElementById("_mainFrame");
-        iframe.onload = function(){
-            console.log("frame load: done!");
-            setTimeout(()=>{document.getElementById("loaderSec").style.display="none"},100);
+        window.open(APPURL+"?page=redirect&token="+token+"&furl="+furl,"_mainFrame");
+        history.replaceState("","","?");
+      }else if(token){
+        document.cookie = "userToken=" + encodeURIComponent(token)   + ";max-age=8640000";
+        console.log("login token:" + token);
+        window.open(APPURL+"?page=login&token="+token,"_mainFrame");
+        history.replaceState("","","?");
+      }else{
+        try{
+          token = document.cookie.split("userToken=")[1].split(";")[0];
+          window.open(APPURL+"?page=view&token="+token,"_mainFrame");
+        }catch(e){
+          console.log(e);
+          window.open(APPURL,"_mainFrame");
         }
+      }
+      var iframe = document.getElementById("_mainFrame");
+      iframe.onload = function(){
+        console.log("frame load: done!");
+        setTimeout(()=>{document.getElementById("loaderSec").style.display="none"},100);
+      }
     }
 
     function getParam(name) {
-        let url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      let url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
     
 
