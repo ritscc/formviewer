@@ -24,7 +24,12 @@
         
       if(furl){
         try{
-          token = document.cookie.split("userToken=")[1].split(";")[0];
+          //token = document.cookie.split("userToken=")[1].split(";")[0];
+          let lSec       = document.getElementById("loader");
+          let addHtml    = `<div style="background-color:#AAA; font-weight:900; padding:1em;">` + 
+                           `<p>このフォームに回答済みか調べています．</p>` + 
+                           `<p><a href="${furl}">スキップしてフォームを開くにはこちらをクリック</a></p></div>`;
+          lSec.innerHTML = lSec.innerHTML + addHtml;
         }catch(e){
           console.log(e);
         }
